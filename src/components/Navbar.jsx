@@ -10,6 +10,7 @@ import favouriteIcon from "../assets/logos/favourite.png"
 import userIcon from "../assets/logos/user.png"
 import cartIcon from "../assets/logos/cart.png"
 import menuIcon from "../assets/icons/burgermenu.png"
+import kaj from "../assets/logos/Kaj.jpg"
 import closeIcon from "../assets/icons/close.png"
 import {Link} from "react-router-dom";
 
@@ -45,7 +46,7 @@ const Navbar = () => {
           <div className="header-mid">
             <div className="header-mid-main">
               <Link to="/">
-                <img src={websiteLogo} alt="Website name"/>
+                <img src={kaj} alt="Website name"/>
               </Link>
             </div>
           </div>

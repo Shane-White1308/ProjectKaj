@@ -10,7 +10,7 @@ const ProductList = ({heading, products, columns=4}) => {
 
     return products.length > 0 ? <>
         <div className="mx-auto px-4 py-8 sm:px-6 sm:py-24 lg:px-8">
-            <h2 className="text-4xl font-bold tracking-tight text-gray-900">{heading}</h2>
+            <h2 className="text-4xl font-bold tracking-tight text-yellow-600">{heading}</h2>
 
             <div className={`mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-${columns} xl:gap-x-8`}>
                 {products.map((product) => <ProductCard key={product.id} product={product}/>)}
