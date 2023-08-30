@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
 import Contact from "./pages/Contact";
+import Faq from "./pages/Faq";
 
 const App = () => {
     return (
@@ -11,6 +12,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/collection/:name" element={<Collection />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/faq" element={<Faq />} />
             </Routes>
         </BrowserRouter>
     );

@@ -4,6 +4,9 @@ import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
+import {faker} from "@faker-js/faker";
+import productImage2 from "../assets/productimages/product2.jpg";
+import modelImage2 from "../assets/productimages/model2.jpg";
 
 const Collection = () => {
     const {name: collectionName} = useParams();
@@ -14,16 +17,27 @@ const Collection = () => {
     useEffect(() => {
         if (collectionName === "all"){
             // get all products
+
+            let products = [];
+
+            for (let i = 0; i < 10; i++){
+                let price = faker.commerce.price({min: 500})
+
+                let product =  {
+                    id: faker.database.mongodbObjectId(),
+                    name: faker.commerce.product(),
+                    originalPrice: price,
+                    offerPrice: faker.commerce.price({min: price - 100, max: +price}),
+                    image1: productImage2,
+                    image2: modelImage2
+                };
+
+                products.push(product);
+            }
+
             const collection = Array(5).fill({
-                heading: "Facewash 💀",
-                products: Array(10).fill({
-                    id: 1,
-                    name: 'BRIGHTENING SERUM - ALPHA ARBUTIN',
-                    originalPrice: 970,
-                    offerPrice: 921,
-                    image1: "https://unsplash.it/640/425",
-                    image2: "https://unsplash.it/720/720"
-                })
+                heading: "Facewash",
+                products
             });
 
             setCategoryWiseProductList(collection);
@@ -31,16 +45,28 @@ const Collection = () => {
             setCarouselImages(Array(5).fill("https://unsplash.it/640/425"));
         } else {
             // get that particular collection
+
+            let products = [];
+
+            for (let i = 0; i < 10; i++){
+                let price = faker.commerce.price({min: 500})
+
+                let product =  {
+                    id: faker.database.mongodbObjectId(),
+                    name: faker.commerce.product(),
+                    originalPrice: price,
+                    offerPrice: faker.commerce.price({min: price - 100, max: +price}),
+                    image1: productImage2,
+                    image2: modelImage2
+                };
+
+                products.push(product);
+            }
+
+
             const collection = [{
-                heading: "Facewash 💀",
-                products: Array(10).fill({
-                    id: 1,
-                    name: 'BRIGHTENING SERUM - ALPHA ARBUTIN',
-                    originalPrice: 970,
-                    offerPrice: 921,
-                    image1: "https://unsplash.it/640/425",
-                    image2: "https://unsplash.it/720/720"
-                })
+                heading: collectionName,
+                products
             }];
 
             // get carousel images

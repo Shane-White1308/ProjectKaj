@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
       <>
-        <header className="bg-yellow-600">
+        <header className="bg-yellow-500">
           <div className="py-2 px-4">
             <div className="flex align-middle justify-end gap-x-2">
               <a href="#" target="_blank">
@@ -79,8 +79,8 @@ const Navbar = () => {
             </div>
 
             <div className="hidden lg:flex lg:gap-x-12">
-              <Link to="#" className="text-sm font-semibold leading-6 text-gray-900 uppercase">
-                Skin All
+              <Link to="/collection/all" className="text-sm font-semibold leading-6 text-gray-900 uppercase">
+                Shop All
               </Link>
 
               <div className="relative group">
@@ -90,39 +90,95 @@ const Navbar = () => {
 
                   <div className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md max-h-0 group-hover:max-h-96 overflow-hidden group-hover:overflow--auto rounded-lg bg-white shadow-lg ring-1 ring-gray-900/5 transition-[max-height] duration-500">
                     <div className="p-4">
-                      <Link to="#" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-30 p-2">
-                        Option 1
-                        <span className="absolute inset-0" />
+                      <Link to="/collection/facewash" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-30 p-2">
+                        Face Wash
+                        {/*<span className="absolute inset-0" />*/}
                       </Link>
 
-                      <Link to="#" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
-                        Option 1
-                        <span className="absolute inset-0" />
+                      <Link to="/collection/faceserum" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
+                        Face Serum
+                        {/*<span className="absolute inset-0" />*/}
                       </Link>
 
-                      <Link to="#" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
-                        Option 1
-                        <span className="absolute inset-0" />
+                      <Link to="/collection/moisturizer" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
+                        Moisturizer
+                        {/*<span className="absolute inset-0" />*/}
                       </Link>
 
-                      <Link to="#" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
-                        Option 1
-                        <span className="absolute inset-0" />
-                      </Link>
+                      {/*<Link to="#" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">*/}
+                      {/*  Option 1*/}
+                      {/*  <span className="absolute inset-0" />*/}
+                      {/*</Link>*/}
 
                     </div>
                   </div>
               </div>
 
-              <Link to="#" className="text-sm font-semibold leading-6 text-gray-900 uppercase">
-                Bath & Body
-              </Link>
-              <Link to="#" className="text-sm font-semibold leading-6 text-gray-900 uppercase">
+              <div className="relative group">
+                <p className="text-sm font-semibold leading-6 text-gray-900 uppercase">
+                  Bath & Body
+                </p>
+
+                <div className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md max-h-0 group-hover:max-h-96 overflow-hidden group-hover:overflow--auto rounded-lg bg-white shadow-lg ring-1 ring-gray-900/5 transition-[max-height] duration-500">
+                  <div className="p-4">
+                    <Link to="/collection/soaps" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-30 p-2">
+                      Soaps
+                      {/*<span className="absolute inset-0" />*/}
+                    </Link>
+
+                    <Link to="/collection/showergel" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
+                      Shower Gel
+                      {/*<span className="absolute inset-0" />*/}
+                    </Link>
+
+                    <Link to="/collection/bodylotion" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
+                      Body Lotion
+                      {/*<span className="absolute inset-0" />*/}
+                    </Link>
+
+                    <Link to="/collection/handcream" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
+                      Hand Cream
+                      {/*<span className="absolute inset-0" />*/}
+                    </Link>
+
+                  </div>
+                </div>
+              </div>
+
+              <Link to="/collection/combooffers" className="text-sm font-semibold leading-6 text-gray-900 uppercase">
                 Combo Offers
               </Link>
-              <Link to="#" className="text-sm font-semibold leading-6 text-gray-900 uppercase">
-                About Us
-              </Link>
+
+              <div className="relative group">
+                <p className="text-sm font-semibold leading-6 text-gray-900 uppercase">
+                  About Us
+                </p>
+
+                <div className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md max-h-0 group-hover:max-h-96 overflow-hidden group-hover:overflow--auto rounded-lg bg-white shadow-lg ring-1 ring-gray-900/5 transition-[max-height] duration-500">
+                  <div className="p-4">
+                    <Link to="#" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-30 p-2">
+                      Our Story
+                      {/*<span className="absolute inset-0" />*/}
+                    </Link>
+
+                    <Link to="/contact" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
+                      Contact Us
+                      {/*<span className="absolute inset-0" />*/}
+                    </Link>
+
+                    <Link to="/faq" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">
+                      FAQ's
+                      {/*<span className="absolute inset-0" />*/}
+                    </Link>
+
+                    {/*<Link to="#" className="uppercase block font-semibold text-gray-900 rounded-lg hover:bg-gray-50 p-2">*/}
+                    {/*  Option 1*/}
+                    {/*  <span className="absolute inset-0" />*/}
+                    {/*</Link>*/}
+
+                  </div>
+                </div>
+              </div>
               <Link to="#" className="text-sm font-semibold leading-6 text-gray-900 uppercase">
                 Our Blogs
               </Link>

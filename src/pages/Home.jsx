@@ -91,7 +91,7 @@ const Home = () => {
       <Navbar />
       <Hero images={carouselImages}/>
         <ProductList heading="Best Sellers" products={bestSellers}/>
-        <ProductList heading="Facewashes 💀" products={facewashes} columns={3}/>
+        <ProductList heading="Facewashes" products={facewashes} columns={3}/>
         <ProductList heading="Face Serum" products={faceserum} columns={3}/>
       <Footer />
     </>
