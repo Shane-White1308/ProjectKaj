@@ -56,7 +56,8 @@ const Faq = () => {
     return (
         <>
             <Navbar />
-            <section className="" >
+
+            <section className="py-20" >
                 <h1 className="text-2xl font-semibold text-center text-gray-800 lg:text-3xl dark:text-white">Frequently asked questions</h1>
                 {categorisedFaq.map((category) => <FaqContainer heading={category.heading} faqs={category.faqs}/>)}
             </section>
