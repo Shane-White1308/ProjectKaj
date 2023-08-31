@@ -1,10 +1,18 @@
 import {useState} from "react";
 import { faker } from '@faker-js/faker';
-
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const Hero = ({product}) => {
     const [selectedQuantity, setSelectedQuantity] = useState(0);
     const [pinCode, setPinCode] = useState("")
+
+    const responsive = {
+        any: {
+            breakpoint: { max: 4000, min: 0 },
+            items: 1,
+        },
+    };
 
     const handleDecreaseQuantity = () => {
         if (selectedQuantity > 0) setSelectedQuantity(q => q - 1)
@@ -34,11 +42,22 @@ const Hero = ({product}) => {
         return faker.datatype.boolean();
     }
 
-    return (<>
+    return product.id && <>
         <section className="text-gray-600 body-font">
-            <div className="container p-20 mx-auto">
-                <div className="mx-auto grid grid-cols-2 gap-20 align-top">
-                    <img alt="ecommerce" className="w-full aspect-square object-cover object-center rounded" src="https://dummyimage.com/400x400"/>
+            <div className="container p-10 lg:p-20 mx-auto">
+                <div className="mx-auto grid lg:grid-cols-2 grid-cols-1  gap-20 align-top">
+                    <Carousel
+                        responsive={responsive}
+                        ssr={false}
+                        infinite={false}
+                        autoPlay={false}
+                        deviceType="any"
+                        arrows={true}
+                    >
+                        {product.images.map((image, i) => (
+                            <img key={i} alt="product" className="w-full aspect-square object-cover object-center rounded" src={image}/>
+                        ))}
+                    </Carousel>
 
                     <div className="w-full">
                         {product.originalPrice !== product.offerPrice && <p className="text-sm p-1 mb-2 font-bold text-gray-200 border bg-yellow-600 rounded w-fit">{Math.floor(((product.originalPrice - product.offerPrice) / product.originalPrice) * 100)}% OFF</p>}
@@ -77,14 +96,13 @@ const Hero = ({product}) => {
                             <span className="text-gray-400">{product.reviewCount} Reviews</span>
                         </div>
 
-
                         <p className="leading-relaxed text-gray-300 mb-8">{product.description}</p>
 
                         <div>
                             <p className="mb-2 text-gray-300 text-sm">Quantity</p>
                             <div className="border border-gray-500 flex items-stretch justify-start w-fit h-8">
                                 <button type="button" className="aspect-[1] bg-yellow-500" onClick={handleDecreaseQuantity}>-</button>
-                                <input type="number" className="w-[6rem] text-center px-3" value={selectedQuantity} onChange={(e)=>setSelectedQuantity(parseInt(e.target.value))}/>
+                                <input type="text" className="w-[6rem] text-center px-3" value={selectedQuantity}/>
                                 <button type="button" className="aspect-[1] bg-yellow-500" onClick={handleIncreaseQuantity}>+</button>
                             </div>
                         </div>
@@ -112,7 +130,7 @@ const Hero = ({product}) => {
                 </div>
             </div>
         </section>
-    </>)
+    </>
 }
 
 export default Hero;
