@@ -24,7 +24,7 @@ const Navbar = () => {
       <>
         <header className="bg-yellow-500 hidden lg:block">
           <div className="py-2 px-4">
-            <div className="flex align-middle justify-end gap-x-2">
+            <div className="flex items-center justify-end gap-x-2">
               <a href="#" target="_blank">
                 <img src={facebookIcon} alt="Facebook" className="h-4 w-4 object-contain"/>
               </a>
@@ -47,7 +47,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="p-2">
-            <div className="flex align-middle justify-center">
+            <div className="flex items-center justify-center">
               <Link to="/">
                 <img src={kaj} alt="Website name" className="h-12 w-auto rounded-full bg-yellow-600"/>
               </Link>

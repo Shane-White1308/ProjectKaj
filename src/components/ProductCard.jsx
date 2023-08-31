@@ -42,7 +42,8 @@ const ProductCard = ({product, favourites = []}) => {
                             <span className="text-red-500"> Rs. {product.offerPrice}</span>
                             <span className="text-red-500"> Save {Math.floor(((product.originalPrice - product.offerPrice) / product.originalPrice) * 100)}%</span>
                         </> :
-                        <span className="opacity-80">Rs. {product.offerPrice}</span>}</p>
+                        <span className="opacity-80">Rs. {product.offerPrice}</span>}
+                    </p>
                     <button type="button" className="bg-white hover:bg-yellow-600 text-black hover:text-black text-md px-4 py-2 rounded-b-2xl rounded-t-2xl border border-solid border-black text-center w-full uppercase">Add to cart</button>
                 </div>
             </div>
