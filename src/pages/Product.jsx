@@ -1,7 +1,7 @@
 import Hero from "../components/product/Hero";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {fa, faker} from "@faker-js/faker";
+import {faker} from "@faker-js/faker";
 import modelImage1 from "../assets/productimages/model1.jpg";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
