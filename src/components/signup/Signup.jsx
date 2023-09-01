@@ -14,14 +14,14 @@ const Signup = () => {
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-yellow-600">
+                <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-yellow-500">
                     Create Account
                 </h2>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="fname" className="block text-sm font-medium leading-6 text-gray-900">
+                            <label htmlFor="fname" className="block text-sm font-medium leading-6 text-yellow-500">
                                 First Name
                             </label>
 
@@ -39,8 +39,8 @@ const Signup = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="lname" className="block text-sm font-medium leading-6 text-gray-900">
-                                Last Email
+                            <label htmlFor="lname" className="block text-sm font-medium leading-6 text-yellow-500">
+                                Last Name
                             </label>
 
                             <div className="mt-2">
@@ -57,7 +57,7 @@ const Signup = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-yellow-500">
                                 Email address
                             </label>
 
@@ -76,11 +76,11 @@ const Signup = () => {
 
                         <div>
                             <div className="flex items-center justify-between">
-                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-yellow-500">
                                     Password
                                 </label>
                                 <div className="text-sm">
-                                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                    <a href="#" className="font-semibold text-yellow-500 hover:text-yellow-400">
                                         Forgot password?
                                     </a>
                                 </div>
@@ -102,7 +102,7 @@ const Signup = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-full bg-indigo-600 p-3 text-sm font-semibold leading-6 text-yellow-500 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full justify-center rounded-full bg-yellow-500 p-3 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Sign in
                             </button>
@@ -111,7 +111,7 @@ const Signup = () => {
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Already a user?{' '}
-                        <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigos-500">
+                        <Link to="/login" className="font-semibold leading-6 text-yellow-500 hover:text-yellow-400">
                             Login
                         </Link>
                     </p>

@@ -12,7 +12,7 @@ const Login = () => {
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-yellow-600">
+                <h2 className="mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-yellow-500">
                     Login
                 </h2>
 
@@ -21,7 +21,7 @@ const Login = () => {
                         <div>
                             <label
                                 htmlFor="email"
-                                className="block text-sm font-medium leading-6 text-gray-900"
+                                className="block text-sm font-medium leading-6 text-yellow-500"
                             >
                                 Email address
                             </label>
@@ -43,14 +43,14 @@ const Login = () => {
                             <div className="flex items-center justify-between">
                                 <label
                                     htmlFor="password"
-                                    className="block text-sm font-medium leading-6 text-gray-900"
+                                    className="block text-sm font-medium leading-6 text-yellow-500"
                                 >
                                     Password
                                 </label>
                                 <div className="text-sm">
                                     <a
                                         href="#"
-                                        className="font-semibold text-indigo-600 hover:text-indigo-500"
+                                        className="font-semibold text-yellow-500 hover:text-yellow-400"
                                     >
                                         Forgot password?
                                     </a>
@@ -75,7 +75,7 @@ const Login = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-full bg-indigo-600 p-3 text-sm font-semibold leading-6 text-yellow-500 shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full justify-center rounded-full bg-yellow-500 p-3 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
                                 Log in
                             </button>
@@ -86,7 +86,7 @@ const Login = () => {
                         Not a user?{" "}
                         <Link
                             to="/signup"
-                            className="font-semibold leading-6 text-indigo-600 hover:text-indigos-500"
+                            className="font-semibold leading-6 text-yellow-500 hover:text-yellow-300"
                         >
                             Create Account
                         </Link>
