@@ -13,10 +13,12 @@ import closeIcon from "../../assets/icons/close.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import Cart from "./Cart";
+import Search from "./Search";
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openCart, setOpenCart] = useState(false);
+    const [openSearch, setOpenSearch] = useState(false);
 
     const _ = ["translate-x-full", "translate-x-0", "hidden", "block"];
 
@@ -84,16 +86,16 @@ const Navbar = () => {
             <header className="bg-yellow-500 sticky top-0 z-[1001]">
                 <nav className="mx-auto flex items-center justify-between p-6 lg:px-8">
                     <div className="hidden lg:flex lg:flex-1">
-                        <Link
+                        <button
                             className="-m-1.5 p-1.5"
-                            to={window.location.pathname + "?action=search"}
+                            onClick={() => setOpenSearch(true)}
                         >
                             <img
                                 className="h-7 w-7 object-contain"
                                 src={searchIcon}
                                 alt="Search Icon"
                             />
-                        </Link>
+                        </button>
                     </div>
 
                     <div className="flex lg:hidden">
@@ -113,7 +115,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="flex lg:hidden gap-x-3 lg:flex-1 lg:justify-end">
-                        <Link to="/user">
+                        <Link to="/login">
                             {" "}
                             <img
                                 src={userIcon}
@@ -261,7 +263,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="hidden gap-x-6 lg:flex lg:flex-1 lg:justify-end">
-                        <Link to="/user">
+                        <Link to="/login">
                             {" "}
                             <img
                                 src={userIcon}
@@ -410,6 +412,7 @@ const Navbar = () => {
             </header>
 
             {openCart && <Cart setOpen={setOpenCart} />}
+            {openSearch && <Search setOpen={setOpenSearch} />}
         </>
     );
 };
