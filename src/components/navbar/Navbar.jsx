@@ -12,16 +12,17 @@ import kaj from "../../assets/logos/Kaj.jpg";
 import closeIcon from "../../assets/icons/close.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-}
+import Cart from "./Cart";
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [openCart, setOpenCart] = useState(false);
+
+    const _ = ["translate-x-full", "translate-x-0", "hidden", "block"];
 
     return (
         <>
+            {/* header upper */}
             <header className="bg-yellow-500 hidden lg:block">
                 <div className="py-2 px-4">
                     <div className="flex items-center justify-end gap-x-2">
@@ -79,7 +80,7 @@ const Navbar = () => {
                 </div>
             </header>
 
-            {/* --- */}
+            {/* header main */}
             <header className="bg-yellow-500 sticky top-0 z-[1001]">
                 <nav className="mx-auto flex items-center justify-between p-6 lg:px-8">
                     <div className="hidden lg:flex lg:flex-1">
@@ -128,13 +129,13 @@ const Navbar = () => {
                                 className="h-5 w-5 object-contain"
                             />
                         </Link>
-                        <Link to={window.location.pathname + "?action=cart"}>
+                        <button onClick={() => setOpenCart(true)}>
                             <img
                                 src={cartIcon}
                                 alt="cart"
                                 className="h-5 w-5 object-contain"
                             />
-                        </Link>
+                        </button>
                     </div>
 
                     <div className="hidden lg:flex lg:gap-x-12">
@@ -276,131 +277,139 @@ const Navbar = () => {
                                 className="h-7 w-7 object-contain"
                             />
                         </Link>
-                        <Link to={window.location.pathname + "?action=cart"}>
+                        <button onClick={() => setOpenCart(true)}>
                             <img
                                 src={cartIcon}
                                 alt="cart"
                                 className="h-7 w-7 object-contain"
                             />
-                        </Link>
+                        </button>
                     </div>
                 </nav>
 
-                {mobileMenuOpen && (
-                    <div className="lg:hidden">
-                        <div className="fixed inset-0 z-[1001]" />
+                <div className="lg:hidden">
+                    <div
+                        className={`fixed top-0 left-0 ${
+                            mobileMenuOpen ? "block" : "hidden"
+                        } bg-black bg-opacity-60 w-full h-screen z-[1001]`}
+                    />
 
-                        <div className="fixed inset-y-0 right-0 z-[1001] w-full overflow-y-auto bg-yellow-500 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-                            <div className="flex items-center justify-between">
-                                <button
-                                    type="button"
-                                    className="-m-2.5 rounded-md p-2.5 text-gray-700"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    <img
-                                        src={closeIcon}
-                                        className="h-6 w-6"
-                                        alt="Close menu"
-                                        aria-hidden="true"
-                                    />
-                                </button>
+                    <div
+                        className={`fixed inset-y-0 right-0 ${
+                            mobileMenuOpen
+                                ? "translate-x-0"
+                                : "translate-x-full"
+                        } z-[1001] w-full overflow-y-auto bg-yellow-500 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 transition-transform duration-300`}
+                    >
+                        <div className="flex items-center justify-between">
+                            <button
+                                type="button"
+                                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                                onClick={() => setMobileMenuOpen(false)}
+                            >
+                                <img
+                                    src={closeIcon}
+                                    className="h-6 w-6"
+                                    alt="Close menu"
+                                    aria-hidden="true"
+                                />
+                            </button>
 
-                                <Link to="#" className="-m-1.5 p-1.5">
-                                    <span className="sr-only">
-                                        Your Company
-                                    </span>
-                                    <img
-                                        src={kaj}
-                                        alt="Website name"
-                                        className="h-8 w-auto rounded-full"
-                                    />
-                                </Link>
-                            </div>
+                            <Link to="#" className="-m-1.5 p-1.5">
+                                <span className="sr-only">Your Company</span>
+                                <img
+                                    src={kaj}
+                                    alt="Website name"
+                                    className="h-8 w-auto rounded-full"
+                                />
+                            </Link>
+                        </div>
 
-                            <div className="mt-6 flow-root">
-                                <div className="-my-6 divide-y divide-gray-500/10">
-                                    <div className="space-y-2 py-6">
-                                        <Link
-                                            to="#"
-                                            className="-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
-                                        >
-                                            Link 1
-                                        </Link>
+                        <div className="mt-6 flow-root">
+                            <div className="-my-6 divide-y divide-gray-500/10">
+                                <div className="space-y-2 py-6">
+                                    <Link
+                                        to="#"
+                                        className="-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
+                                    >
+                                        Link 1
+                                    </Link>
 
-                                        <div>
-                                            <p className="-mx-3 block px-3 py-2 text-base font-medium text-gray-900">
-                                                Category 1
-                                            </p>
-
-                                            <Link
-                                                to="#"
-                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
-                                            >
-                                                Option 1
-                                            </Link>
-
-                                            <Link
-                                                to="#"
-                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
-                                            >
-                                                Option 1
-                                            </Link>
-
-                                            <Link
-                                                to="#"
-                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
-                                            >
-                                                Option 1
-                                            </Link>
-                                        </div>
-
-                                        <div>
-                                            <p className="-mx-3 block px-3 py-2 text-base font-medium text-gray-900">
-                                                Category 2
-                                            </p>
-
-                                            <Link
-                                                to="#"
-                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
-                                            >
-                                                Option 1
-                                            </Link>
-
-                                            <Link
-                                                to="#"
-                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
-                                            >
-                                                Option 1
-                                            </Link>
-
-                                            <Link
-                                                to="#"
-                                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
-                                            >
-                                                Option 1
-                                            </Link>
-                                        </div>
+                                    <div>
+                                        <p className="-mx-3 block px-3 py-2 text-base font-medium text-gray-900">
+                                            Category 1
+                                        </p>
 
                                         <Link
                                             to="#"
-                                            className="-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
+                                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                         >
-                                            Link 2
+                                            Option 1
                                         </Link>
 
                                         <Link
                                             to="#"
-                                            className="-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
+                                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                         >
-                                            Link 3
+                                            Option 1
+                                        </Link>
+
+                                        <Link
+                                            to="#"
+                                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
+                                        >
+                                            Option 1
                                         </Link>
                                     </div>
+
+                                    <div>
+                                        <p className="-mx-3 block px-3 py-2 text-base font-medium text-gray-900">
+                                            Category 2
+                                        </p>
+
+                                        <Link
+                                            to="#"
+                                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
+                                        >
+                                            Option 1
+                                        </Link>
+
+                                        <Link
+                                            to="#"
+                                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
+                                        >
+                                            Option 1
+                                        </Link>
+
+                                        <Link
+                                            to="#"
+                                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
+                                        >
+                                            Option 1
+                                        </Link>
+                                    </div>
+
+                                    <Link
+                                        to="#"
+                                        className="-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
+                                    >
+                                        Link 2
+                                    </Link>
+
+                                    <Link
+                                        to="#"
+                                        className="-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
+                                    >
+                                        Link 3
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
-                )}
+                </div>
             </header>
+
+            {openCart && <Cart setOpen={setOpenCart} />}
         </>
     );
 };
