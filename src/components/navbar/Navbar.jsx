@@ -25,7 +25,7 @@ const Navbar = () => {
     return (
         <>
             {/* header upper */}
-            <header className="bg-yellow-500 hidden lg:block">
+            <header className="bg-gradient-to-r from-yellow-500 to-yellow-700 hidden lg:block">
                 <div className="py-2 px-4">
                     <div className="flex items-center justify-end gap-x-2">
                         <a href="#" target="_blank">
@@ -83,7 +83,7 @@ const Navbar = () => {
             </header>
 
             {/* header main */}
-            <header className="bg-yellow-500 sticky top-0 z-[1001]">
+            <header className="bg-gradient-to-r from-yellow-500 to-yellow-700 sticky top-0 z-[1001]">
                 <nav className="mx-auto flex items-center justify-between p-6 lg:px-8">
                     <div className="hidden lg:flex lg:flex-1">
                         <button
@@ -271,14 +271,14 @@ const Navbar = () => {
                                 className="h-7 w-7 object-contain"
                             />
                         </Link>
-                        <Link to="/favourite">
-                            {" "}
-                            <img
-                                src={favouriteIcon}
-                                alt="favourite"
-                                className="h-7 w-7 object-contain"
-                            />
-                        </Link>
+                        {/*<Link to="/favourite">*/}
+                        {/*    {" "}*/}
+                        {/*    <img*/}
+                        {/*        src={favouriteIcon}*/}
+                        {/*        alt="favourite"*/}
+                        {/*        className="h-7 w-7 object-contain"*/}
+                        {/*    />*/}
+                        {/*</Link>*/}
                         <button onClick={() => setOpenCart(true)}>
                             <img
                                 src={cartIcon}
@@ -331,78 +331,78 @@ const Navbar = () => {
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
                                     <Link
-                                        to="#"
+                                        to="/collection/all"
                                         className="-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                     >
-                                        Link 1
+                                        Shop All
                                     </Link>
 
                                     <div>
                                         <p className="-mx-3 block px-3 py-2 text-base font-medium text-gray-900">
-                                            Category 1
+                                            Skin Care
                                         </p>
 
                                         <Link
-                                            to="#"
+                                            to="/collection/facewash"
                                             className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                         >
-                                            Option 1
+                                            FaceWash
                                         </Link>
 
                                         <Link
-                                            to="#"
+                                            to="/collection/faceserum"
                                             className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                         >
-                                            Option 1
+                                            Face Serum
                                         </Link>
 
                                         <Link
-                                            to="#"
+                                            to="/collection/moisturizer"
                                             className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                         >
-                                            Option 1
+                                            Moisturizer
                                         </Link>
                                     </div>
 
                                     <div>
                                         <p className="-mx-3 block px-3 py-2 text-base font-medium text-gray-900">
-                                            Category 2
+                                            Bath & Body
                                         </p>
 
                                         <Link
-                                            to="#"
+                                            to="/collection/soaps"
                                             className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                         >
-                                            Option 1
+                                            Soaps & Hand Cream
                                         </Link>
 
                                         <Link
-                                            to="#"
+                                            to="/collection/showergel"
                                             className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                         >
-                                            Option 1
+                                            Shower Gel
                                         </Link>
 
                                         <Link
-                                            to="#"
+                                            to="/collection/bodylotion"
                                             className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                         >
-                                            Option 1
+                                            Body Lotion
                                         </Link>
                                     </div>
 
                                     <Link
-                                        to="#"
+                                        to="/collection/combooffers"
                                         className="-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                     >
-                                        Link 2
+                                        Combo Offers
                                     </Link>
 
                                     <Link
-                                        to="#"
+                                        to="/contact"
                                         className="-mx-3 block rounded-lg px-3 py-2 text-sm font-semibold leading-7 text-gray-700 hover:bg-gray-50"
                                     >
-                                        Link 3
+                                        Contact Us
                                     </Link>
                                 </div>
                             </div>
