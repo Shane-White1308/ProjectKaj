@@ -123,14 +123,13 @@ const Navbar = () => {
                                 className="h-5 w-5 object-contain"
                             />
                         </Link>
-                        <Link to="/favourite">
-                            {" "}
+                        <button onClick={() => setOpenSearch(true)}>
                             <img
-                                src={favouriteIcon}
-                                alt="favourite"
+                                src={searchIcon}
+                                alt="Search"
                                 className="h-5 w-5 object-contain"
                             />
-                        </Link>
+                        </button>
                         <button onClick={() => setOpenCart(true)}>
                             <img
                                 src={cartIcon}
@@ -264,21 +263,13 @@ const Navbar = () => {
 
                     <div className="hidden gap-x-6 lg:flex lg:flex-1 lg:justify-end">
                         <Link to="/login">
-                            {" "}
                             <img
                                 src={userIcon}
                                 alt="user"
                                 className="h-7 w-7 object-contain"
                             />
                         </Link>
-                        {/*<Link to="/favourite">*/}
-                        {/*    {" "}*/}
-                        {/*    <img*/}
-                        {/*        src={favouriteIcon}*/}
-                        {/*        alt="favourite"*/}
-                        {/*        className="h-7 w-7 object-contain"*/}
-                        {/*    />*/}
-                        {/*</Link>*/}
+
                         <button onClick={() => setOpenCart(true)}>
                             <img
                                 src={cartIcon}
