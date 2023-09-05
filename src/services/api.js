@@ -35,6 +35,10 @@ export const login = (email, password) => {
     return postApi("user/login/", { email, password });
 };
 
+export const authGoogle = (googleToken) => {
+    return postApi("user/auth/google/", { googleToken });
+};
+
 export const resetPasswordInit = (email) => {
     return postApi("user/reset/init/", { email });
 };

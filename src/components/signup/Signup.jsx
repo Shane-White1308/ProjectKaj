@@ -2,7 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login as loginAction } from "../../redux/reducer/auth";
-import { signup as signupApi } from "../../services/api";
+import {
+    signup as signupApi,
+    authGoogle as authGoogleApi,
+} from "../../services/api";
+import GoogleLogin from "../GoogleLogin";
 
 const Signup = () => {
     const dispatch = useDispatch();
@@ -13,6 +17,26 @@ const Signup = () => {
     const [password, setPassword] = useState("");
 
     const [error, setError] = useState("");
+
+    const [googleAllowed, setGoogleAllowed] = useState(false);
+
+    const handleGoogleFailure = () => {
+        setError("Error continuing with google");
+    };
+
+    const handleAuthGoogle = async (credential) => {
+        if (!credential) {
+            setError("Some error occurred");
+        } else {
+            const response = await authGoogleApi(credential);
+
+            if (response.status === "ok") {
+                dispatch(loginAction(response.user));
+            } else {
+                setError("Some error occurred");
+            }
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -149,6 +173,18 @@ const Signup = () => {
                             </button>
                         </div>
                     </form>
+
+                    {googleAllowed && (
+                        <p className="text-lg text-gray-300 text-center my-4">
+                            OR
+                        </p>
+                    )}
+
+                    <GoogleLogin
+                        onSuccess={handleAuthGoogle}
+                        onError={handleGoogleFailure}
+                        onLoad={() => setGoogleAllowed(true)}
+                    />
 
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Already a user?{" "}
