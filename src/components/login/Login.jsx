@@ -1,12 +1,27 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login as loginAction } from "../../redux/reducer/auth";
+import { login as loginApi } from "../../services/api";
 
 const Login = () => {
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const [error, setError] = useState("");
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const response = await loginApi(email, password);
+
+        if (response.status === "ok") {
+            dispatch(loginAction(response.user));
+        } else {
+            setError(response.error);
+        }
     };
 
     return (
@@ -18,6 +33,12 @@ const Login = () => {
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     <form className="space-y-6" onSubmit={handleSubmit}>
+                        {error && (
+                            <div className="rounded-md border border-yellow-700 p-4">
+                                <p className="text-white">{error}</p>
+                            </div>
+                        )}
+
                         <div>
                             <label
                                 htmlFor="email"

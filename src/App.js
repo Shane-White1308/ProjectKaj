@@ -7,20 +7,24 @@ import Faq from "./pages/Faq";
 import Product from "./pages/Product";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Init from "./components/Init";
 
 const App = () => {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/collection/:name" element={<Collection />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/faq" element={<Faq />} />
-                <Route path="/product/:id" element={<Product />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/login" element={<Login />} />
-            </Routes>
-        </BrowserRouter>
+        <>
+            <Init />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/collection/:name" element={<Collection />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/faq" element={<Faq />} />
+                    <Route path="/product/:id" element={<Product />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </BrowserRouter>
+        </>
     );
 };
 
