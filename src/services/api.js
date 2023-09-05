@@ -35,6 +35,14 @@ export const login = (email, password) => {
     return postApi("user/login/", { email, password });
 };
 
+export const resetPasswordInit = (email) => {
+    return postApi("user/reset/init/", { email });
+};
+
+export const resetPassword = (email, otp, password) => {
+    return postApi("user/reset/", { email, otp, password });
+};
+
 export const getUser = () => {
     return postApi("user/");
 };
