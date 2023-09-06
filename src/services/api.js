@@ -1,5 +1,4 @@
-// const apiBaseUrl = "https://kaj.onrender.com/";
-const apiBaseUrl = "http://localhost:7000/";
+const apiBaseUrl = process.env.REACT_APP_API_LINK;
 
 const postApi = async (url, bodyParams = {}) => {
     try {
