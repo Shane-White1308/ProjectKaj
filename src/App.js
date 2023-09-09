@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Init from "./components/Init";
 import ForgotPassword from "./pages/ForgotPassword";
+import Profile from "./components/profile/Profile";
 
 const App = () => {
     return (
@@ -24,6 +25,7 @@ const App = () => {
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/forgot" element={<ForgotPassword />} />
+                    <Route path="/profile" element={<Profile />} />
                 </Routes>
             </BrowserRouter>
         </>
