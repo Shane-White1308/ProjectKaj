@@ -14,9 +14,30 @@ const postApi = async (url, bodyParams = {}) => {
             body: JSON.stringify(bodyParams),
         });
 
-        const data = await res.json();
+        return await res.json();
+    } catch (error) {
+        return {
+            status: "error",
+            code: 503,
+            error: error.message,
+        };
+    }
+};
 
-        return data;
+const getDeleteApi = async (url, method) => {
+    try {
+        const res = await fetch(apiBaseUrl + url, {
+            method: method,
+            headers: {
+                "content-type": "application/json",
+                accept: "application/json",
+            },
+            mode: "cors",
+            credentials: "include",
+            withCredentials: true,
+        });
+
+        return await res.json();
     } catch (error) {
         return {
             status: "error",
@@ -27,11 +48,11 @@ const postApi = async (url, bodyParams = {}) => {
 };
 
 export const signup = (firstName, lastName, email, password) => {
-    return postApi("user/register/", { firstName, lastName, email, password });
+    return postApi("user/auth/register", { firstName, lastName, email, password });
 };
 
 export const login = (email, password) => {
-    return postApi("user/login/", { email, password });
+    return postApi("user/auth/login", { email, password });
 };
 
 export const authGoogle = (googleToken) => {
@@ -39,13 +60,25 @@ export const authGoogle = (googleToken) => {
 };
 
 export const resetPasswordInit = (email) => {
-    return postApi("user/reset/init/", { email });
+    return postApi("user/reset/password/init", { email });
 };
 
 export const resetPassword = (email, otp, password) => {
-    return postApi("user/reset/", { email, otp, password });
+    return postApi("user/reset/password", { email, otp, password });
 };
 
 export const getUser = () => {
-    return postApi("user/");
+    return getDeleteApi("user/", "GET");
+};
+
+export const logoutUser = () => {
+    return getDeleteApi("user/logout", "GET");
+};
+
+export const getAllCategory = () => {
+    return getDeleteApi("category/", "GET");
+};
+
+export const getProductByCategory = (categoryId) => {
+    return getDeleteApi(`product/category/${categoryId}`, "GET");
 };

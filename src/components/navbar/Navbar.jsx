@@ -4,7 +4,7 @@ import linkedinIcon from "../../assets/icons/linkedin.png";
 import pinterestIcon from "../../assets/icons/pinterest.png";
 import youtubeIcon from "../../assets/icons/youtube.png";
 import searchIcon from "../../assets/logos/searchicon.png";
-import favouriteIcon from "../../assets/logos/favourite.png";
+// import favouriteIcon from "../../assets/logos/favourite.png";
 import userIcon from "../../assets/logos/user.png";
 import cartIcon from "../../assets/logos/cart.png";
 import menuIcon from "../../assets/icons/burgermenu.png";
@@ -14,11 +14,15 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import Cart from "./Cart";
 import Search from "./Search";
+import { useSelector } from "react-redux";
+import profile from "../profile/Profile";
 
 const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openCart, setOpenCart] = useState(false);
     const [openSearch, setOpenSearch] = useState(false);
+
+    const user = useSelector((state) => state.auth.user);
 
     const _ = ["translate-x-full", "translate-x-0", "hidden", "block"];
 
@@ -115,7 +119,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="flex lg:hidden gap-x-3 lg:flex-1 lg:justify-end">
-                        <Link to="/login">
+                        <Link to={user?"/profile":"/login"}>
                             {" "}
                             <img
                                 src={userIcon}
@@ -262,7 +266,7 @@ const Navbar = () => {
                     </div>
 
                     <div className="hidden gap-x-6 lg:flex lg:flex-1 lg:justify-end">
-                        <Link to="/login">
+                        <Link to={user?"/profile":"/login"}>
                             <img
                                 src={userIcon}
                                 alt="user"
