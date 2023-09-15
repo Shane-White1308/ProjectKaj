@@ -3,13 +3,11 @@ import Hero from "../components/ProductCarousel";
 import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
 import { useState, useEffect } from "react";
-import productImage1 from "../assets/productimages/product1.jpg";
-import productImage2 from "../assets/productimages/product2.jpg";
-import productImage3 from "../assets/productimages/product3.jpg";
-import modelImage1 from "../assets/productimages/model1.jpg";
-import modelImage2 from "../assets/productimages/model2.jpg";
-import modelImage3 from "../assets/productimages/model3.jpg";
-import { faker } from "@faker-js/faker";
+import {
+    getTopProduct as getTopProductApi,
+    getCategoryByName as getCategoryByNameApi,
+    getProductByCategory as getProductByCategoryApi,
+} from "../services/api";
 
 const Home = () => {
     const [carouselImages, setCarouselImages] = useState([]);
@@ -18,80 +16,61 @@ const Home = () => {
     const [faceserum, setFaceSerum] = useState([]);
 
     useEffect(() => {
-        // get carousel images
         setCarouselImages(Array(5).fill("https://unsplash.it/1920/1080"));
     }, []);
 
     useEffect(() => {
-        let products = [];
+        const run = async () => {
+            const response = await getTopProductApi();
 
-        for (let i = 0; i < 10; i++) {
-            let price = faker.commerce.price({ min: 500 });
+            if (response.status === "ok") {
+                setBestSellers(response.products);
+            }
+        };
 
-            let product = {
-                id: faker.database.mongodbObjectId(),
-                name: faker.commerce.product(),
-                originalPrice: price,
-                offerPrice: faker.commerce.price({
-                    min: price - 100,
-                    max: +price,
-                }),
-                image1: productImage1,
-                image2: modelImage1,
-            };
-
-            products.push(product);
-        }
-
-        setBestSellers(products);
+        run();
     }, []);
 
     useEffect(() => {
-        let products = [];
+        const run = async () => {
+            const categoryResponse = await getCategoryByNameApi("facewash");
 
-        for (let i = 0; i < 10; i++) {
-            let price = faker.commerce.price({ min: 500 });
+            if (categoryResponse.status === "ok") {
+                const productResponse = await getProductByCategoryApi(
+                    categoryResponse.category._id
+                );
 
-            let product = {
-                id: faker.database.mongodbObjectId(),
-                name: faker.commerce.product(),
-                originalPrice: price,
-                offerPrice: faker.commerce.price({
-                    min: price - 100,
-                    max: +price,
-                }),
-                image1: productImage2,
-                image2: modelImage2,
-            };
+                if (productResponse.status === "ok") {
+                    categoryResponse.category.products =
+                        productResponse.products;
 
-            products.push(product);
-        }
+                    setFacewashes([categoryResponse.category]);
+                }
+            }
+        };
 
-        setFacewashes(products);
+        run();
     }, []);
 
     useEffect(() => {
-        let products = [];
+        const run = async () => {
+            const categoryResponse = await getCategoryByNameApi("faceserum");
 
-        for (let i = 0; i < 10; i++) {
-            let price = faker.commerce.price({ min: 500 });
+            if (categoryResponse.status === "ok") {
+                const productResponse = await getProductByCategoryApi(
+                    categoryResponse.category._id
+                );
 
-            let product = {
-                id: faker.database.mongodbObjectId(),
-                name: faker.commerce.product(),
-                originalPrice: price,
-                offerPrice: faker.commerce.price({
-                    min: price - 100,
-                    max: +price,
-                }),
-                image1: productImage3,
-                image2: modelImage3,
-            };
+                if (productResponse.status === "ok") {
+                    categoryResponse.category.products =
+                        productResponse.products;
 
-            products.push(product);
-        }
+                    setFacewashes([categoryResponse.category]);
+                }
+            }
+        };
 
-        setFaceSerum(products);
+        run();
     }, []);
 
     return (

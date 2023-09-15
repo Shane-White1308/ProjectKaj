@@ -48,7 +48,12 @@ const getDeleteApi = async (url, method) => {
 };
 
 export const signup = (firstName, lastName, email, password) => {
-    return postApi("user/auth/register", { firstName, lastName, email, password });
+    return postApi("user/auth/register", {
+        firstName,
+        lastName,
+        email,
+        password,
+    });
 };
 
 export const login = (email, password) => {
@@ -71,6 +76,10 @@ export const getUser = () => {
     return getDeleteApi("user/", "GET");
 };
 
+export const getOtherUser = (id) => {
+    return getDeleteApi(`user/${id}`, "GET");
+};
+
 export const logoutUser = () => {
     return getDeleteApi("user/logout", "GET");
 };
@@ -79,6 +88,34 @@ export const getAllCategory = () => {
     return getDeleteApi("category/", "GET");
 };
 
-export const getProductByCategory = (categoryId) => {
-    return getDeleteApi(`product/category/${categoryId}`, "GET");
+export const getCategoryByName = (name) => {
+    return getDeleteApi(`category/name/${name}`, "GET");
+};
+
+export const getTopProduct = (count = 10) => {
+    return getDeleteApi(`product/top/?count=${count}`, "GET");
+};
+
+export const getProductByCategory = (id) => {
+    return getDeleteApi(`product/category/${id}`, "GET");
+};
+
+export const getProductById = (id) => {
+    return getDeleteApi(`product/${id}`, "GET");
+};
+
+export const getProductImages = (id) => {
+    return getDeleteApi(`image/product/${id}`, "GET");
+};
+
+export const getProductFeatures = (id) => {
+    return getDeleteApi(`feature/product/${id}`, "GET");
+};
+
+export const getProductReviews = (id) => {
+    return getDeleteApi(`review/product/${id}`, "GET");
+};
+
+export const getProductReviewSummary = (id) => {
+    return getDeleteApi(`review/product/${id}/summary`, "GET");
 };

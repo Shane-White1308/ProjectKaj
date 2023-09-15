@@ -4,10 +4,11 @@ import Footer from "../components/Footer";
 import ProductList from "../components/ProductList";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { faker } from "@faker-js/faker";
-import productImage2 from "../assets/productimages/product2.jpg";
-import modelImage2 from "../assets/productimages/model2.jpg";
-import {getAllCategory as getAllCategoryApi, getProductByCategory as getProductByCategoryApi} from "../services/api";
+import {
+    getAllCategory as getAllCategoryApi,
+    getProductByCategory as getProductByCategoryApi,
+    getCategoryByName as getCategoryByNameApi,
+} from "../services/api";
 
 const Collection = () => {
     const { name: collectionName } = useParams();
@@ -18,70 +19,46 @@ const Collection = () => {
     useEffect(() => {
         const run = async () => {
             if (collectionName === "all") {
-                // get all products
+                const categoryResponse = await getAllCategoryApi();
 
-                let collections = [];
+                if (categoryResponse.status === "ok") {
+                    const categories = categoryResponse.categories;
 
-                let categories = await getAllCategoryApi();
-                if (categories.status === "ok") {
-                    await categories.categories.forEach(async category => {
-                        console.log("hfgfghsdafadg");
-                        let pro = await getProductByCategoryApi(category._id);
-                        if (pro.status === "ok") {
-                            const collection = {
-                                heading: category.name,
-                                products:pro.products,
-                            };
-                            console.log(collection);
-                            collections.push(collection);
+                    for (const category of categories) {
+                        const productResponse = await getProductByCategoryApi(
+                            category._id
+                        );
 
+                        if (productResponse.status === "ok") {
+                            category.products = productResponse.products;
                         }
-                    })
-                    console.log("asdad");
-                    console.log(collections);
-                    setCategoryWiseProductList(collections);
+                    }
+
+                    setCategoryWiseProductList(categories);
                 }
 
-
-                // get carousel images
                 setCarouselImages(Array(5).fill("https://unsplash.it/640/425"));
             } else {
-                // get that particular collection
+                const categoryResponse = await getCategoryByNameApi(
+                    collectionName
+                );
 
-                let products = [];
+                if (categoryResponse.status === "ok") {
+                    const productResponse = await getProductByCategoryApi(
+                        categoryResponse.category._id
+                    );
 
-                for (let i = 0; i < 10; i++) {
-                    let price = faker.commerce.price({ min: 500 });
+                    if (productResponse.status === "ok") {
+                        categoryResponse.category.products =
+                            productResponse.products;
 
-                    let product = {
-                        id: faker.database.mongodbObjectId(),
-                        name: faker.commerce.product(),
-                        originalPrice: price,
-                        offerPrice: faker.commerce.price({
-                            min: price - 100,
-                            max: +price,
-                        }),
-                        image1: productImage2,
-                        image2: modelImage2,
-                    };
-
-                    products.push(product);
+                        setCategoryWiseProductList([categoryResponse.category]);
+                    }
                 }
 
-                const collection = [
-                    {
-                        heading: collectionName,
-                        products,
-                    },
-                ];
-
-                // get carousel images
                 setCarouselImages(Array(5).fill("https://unsplash.it/640/425"));
-
-                setCategoryWiseProductList(collection);
             }
-
-        }
+        };
 
         run();
     }, [collectionName]);
@@ -92,10 +69,10 @@ const Collection = () => {
 
             <Hero images={carouselImages} />
 
-            {categoryWiseProductList.map((category, i) => (
+            {categoryWiseProductList.map((category) => (
                 <ProductList
-                    key={i}
-                    heading={category.heading}
+                    key={category._id}
+                    heading={category.name}
                     products={category.products}
                 />
             ))}
