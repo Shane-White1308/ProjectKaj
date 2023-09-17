@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-const ProductList = ({ heading, products, columns = 4 }) => {
+const ProductList = ({ heading, products = [], columns = 4 }) => {
     const possibleColumnsStructure = [
         "grid-cols-1",
         "grid-cols-2",

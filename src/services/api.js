@@ -119,3 +119,19 @@ export const getProductReviews = (id) => {
 export const getProductReviewSummary = (id) => {
     return getDeleteApi(`review/product/${id}/summary`, "GET");
 };
+
+export const addToCart = (id) => {
+    return postApi("cart/", { product: id });
+};
+
+export const getCartItems = () => {
+    return getDeleteApi("cart/", "GET");
+};
+
+export const updateCartItem = (id, quantity) => {
+    return postApi(`cart/${id}`, { quantity });
+};
+
+export const deleteCartItem = (id) => {
+    return getDeleteApi(`cart/${id}`, "DELETE");
+};

@@ -41,10 +41,7 @@ const Home = () => {
                 );
 
                 if (productResponse.status === "ok") {
-                    categoryResponse.category.products =
-                        productResponse.products;
-
-                    setFacewashes([categoryResponse.category]);
+                    setFacewashes(productResponse.products);
                 }
             }
         };
@@ -62,10 +59,7 @@ const Home = () => {
                 );
 
                 if (productResponse.status === "ok") {
-                    categoryResponse.category.products =
-                        productResponse.products;
-
-                    setFacewashes([categoryResponse.category]);
+                    setFaceSerum(productResponse.products);
                 }
             }
         };
