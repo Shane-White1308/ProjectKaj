@@ -1,8 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import {
+    addToCart as addToCartApi,
+    deleteCartItem as deleteCartItemApi,
+} from "../../services/api";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    addItem as addItemAction,
+    deleteItem as deleteItemAction,
+} from "../../redux/reducer/cart";
 
 const Hero = ({ product, images, reviewSummary }) => {
+    const cartItems = useSelector((state) => state.cart.items);
+    const dispatch = useDispatch();
+
+    const [isInCart, setIsInCart] = useState(false);
+    const [cartId, setCartId] = useState("");
+
     const [selectedQuantity, setSelectedQuantity] = useState(
         product.quantity === 0 ? 0 : 1
     );
@@ -14,6 +29,24 @@ const Hero = ({ product, images, reviewSummary }) => {
             items: 1,
         },
     };
+
+    useEffect(() => {
+        let found = false;
+
+        for (const item of cartItems) {
+            if (item.product === product._id) {
+                setIsInCart(true);
+                setCartId(item.id);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            setIsInCart(false);
+            setCartId("");
+        }
+    }, [cartItems, product]);
 
     const handleDecreaseQuantity = () => {
         if (selectedQuantity > 0) setSelectedQuantity((q) => q - 1);
@@ -28,7 +61,31 @@ const Hero = ({ product, images, reviewSummary }) => {
 
     const handleBuyNow = () => {};
 
-    const handleAddToCart = () => {};
+    const handleAddRemoveItem = async () => {
+        if (isInCart) {
+            const response = await deleteCartItemApi(cartId);
+
+            if (response.status === "ok") {
+                dispatch(deleteItemAction({ id: cartId }));
+            } else {
+                console.log(response.error);
+            }
+        } else {
+            const response = await addToCartApi(product._id, selectedQuantity);
+
+            if (response.status === "ok") {
+                dispatch(
+                    addItemAction({
+                        id: response.cart._id,
+                        product: response.cart.product,
+                        quantity: response.cart.quantity,
+                    })
+                );
+            } else {
+                console.log(response.error);
+            }
+        }
+    };
 
     return (
         product._id && (
@@ -153,33 +210,35 @@ const Hero = ({ product, images, reviewSummary }) => {
                                     {product.description}
                                 </p>
 
-                                <div>
-                                    <p className="mb-2 text-gray-300 text-sm">
-                                        Quantity
-                                    </p>
-                                    <div className="border border-gray-500 flex items-stretch justify-start w-fit h-8">
-                                        <button
-                                            type="button"
-                                            className="aspect-[1] bg-yellow-500"
-                                            onClick={handleDecreaseQuantity}
-                                        >
-                                            -
-                                        </button>
-                                        <input
-                                            type="text"
-                                            className="w-[6rem] text-center px-3"
-                                            value={selectedQuantity}
-                                            readOnly={true}
-                                        />
-                                        <button
-                                            type="button"
-                                            className="aspect-[1] bg-yellow-500"
-                                            onClick={handleIncreaseQuantity}
-                                        >
-                                            +
-                                        </button>
+                                {!isInCart && (
+                                    <div>
+                                        <p className="mb-2 text-gray-300 text-sm">
+                                            Quantity
+                                        </p>
+                                        <div className="border border-gray-500 flex items-stretch justify-start w-fit h-8">
+                                            <button
+                                                type="button"
+                                                className="aspect-[1] bg-yellow-500"
+                                                onClick={handleDecreaseQuantity}
+                                            >
+                                                -
+                                            </button>
+                                            <input
+                                                type="text"
+                                                className="w-[6rem] text-center px-3"
+                                                value={selectedQuantity}
+                                                readOnly={true}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="aspect-[1] bg-yellow-500"
+                                                onClick={handleIncreaseQuantity}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
+                                )}
 
                                 <div className="mt-6">
                                     <p className="mb-2 text-gray-300 text-sm">
@@ -211,7 +270,10 @@ const Hero = ({ product, images, reviewSummary }) => {
                                     <button
                                         className="flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded"
                                         onClick={handleBuyNow}
-                                        disabled={selectedQuantity === 0}
+                                        disabled={
+                                            selectedQuantity === 0 ||
+                                            product.quantity < selectedQuantity
+                                        }
                                     >
                                         {product.quantity === 0
                                             ? "Out of stock"
@@ -219,12 +281,17 @@ const Hero = ({ product, images, reviewSummary }) => {
                                     </button>
                                     <button
                                         className="flex text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-yellow-600 rounded"
-                                        onClick={handleAddToCart}
-                                        disabled={selectedQuantity === 0}
+                                        onClick={handleAddRemoveItem}
+                                        disabled={
+                                            selectedQuantity === 0 ||
+                                            product.quantity < selectedQuantity
+                                        }
                                     >
                                         {product.quantity === 0
                                             ? "Out of stock"
-                                            : "Add to Cart"}
+                                            : !isInCart
+                                            ? "Add to Cart"
+                                            : "Remove from Cart"}
                                     </button>
                                 </div>
                             </div>

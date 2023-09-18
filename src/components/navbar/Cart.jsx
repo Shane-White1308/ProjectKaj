@@ -1,50 +1,49 @@
 import { useState, useEffect } from "react";
-import productImage1 from "../../assets/productimages/product1.jpg";
 import closeIcon from "../../assets/icons/close.png";
-import { faker } from "@faker-js/faker";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import CartItem from "./CartItem";
 
 const Cart = ({ setOpen }) => {
-    const [products, setProducts] = useState([]);
-    const [show, setShow] = useState(false);
+    const cartItems = useSelector((state) => state.cart.items);
 
+    const [productPrice, setProductPrice] = useState({});
     const [totalPrice, setTotalPrice] = useState(0);
 
-    useEffect(() => {
-        let temp = [];
+    const [loading, setLoading] = useState(false);
 
-        for (let i = 0; i < 10; i++) {
-            let product = {
-                id: faker.database.mongodbObjectId(),
-                name: faker.commerce.product(),
-                price: faker.number.int({ min: 500, max: 2000 }),
-                image: productImage1,
-                quantity: faker.number.int({ min: 1, max: 7 }),
-            };
-
-            temp.push(product);
-        }
-
-        setProducts(temp);
-    }, []);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
-        let total = 0;
+        setLoading(true);
 
-        if (products.length > 0) {
-            products.forEach((product) => {
-                total += product.price;
-            });
+        let calculated = true;
+        let temp = 0;
 
-            setTotalPrice(total);
+        for (let i = 0; i < cartItems.length; i++) {
+            const item = cartItems[i];
+
+            if (!productPrice.hasOwnProperty(item.product)) {
+                calculated = false;
+                break;
+            } else {
+                temp += productPrice[item.product] * item.quantity;
+            }
         }
-    }, [products]);
+
+        if (calculated) {
+            setTotalPrice(temp);
+            setLoading(false);
+        }
+    }, [cartItems, productPrice]);
 
     useEffect(() => {
         setShow(true);
     }, []);
 
-    const handleRemoveItem = () => {};
+    const addProductPrice = (productId, price) => {
+        setProductPrice((prev) => ({ ...prev, [productId]: price }));
+    };
 
     const _ = ["translate-x-full", "translate-x-0", "hidden", "block"];
 
@@ -85,56 +84,12 @@ const Cart = ({ setOpen }) => {
                     <div className="mt-4 px-6">
                         <div className="flow-root">
                             <ul className="-my-6 divide-y divide-gray-200">
-                                {products.map((product) => (
-                                    <li key={product.id} className="flex py-6">
-                                        <Link
-                                            to={"/product/" + product.id}
-                                            className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
-                                        >
-                                            <img
-                                                src={product.image}
-                                                alt={product.name}
-                                                className="h-full w-full object-cover object-center"
-                                            />
-                                        </Link>
-
-                                        <div className="ml-4 flex flex-1 flex-col">
-                                            <div className="flex justify-between text-base font-medium text-gray-900">
-                                                <h3>
-                                                    <Link
-                                                        to={
-                                                            "/product/" +
-                                                            product.id
-                                                        }
-                                                    >
-                                                        {product.name}
-                                                    </Link>
-                                                </h3>
-                                                <p className="ml-4">
-                                                    Rs.{" "}
-                                                    {product.price.toLocaleString()}
-                                                </p>
-                                            </div>
-
-                                            <div className="flex flex-1 items-end justify-between text-sm">
-                                                <p className="text-gray-500">
-                                                    Qty {product.quantity}
-                                                </p>
-
-                                                <div className="flex">
-                                                    <button
-                                                        type="button"
-                                                        className="font-medium text-indigo-600 hover:text-indigo-500"
-                                                        onClick={
-                                                            handleRemoveItem
-                                                        }
-                                                    >
-                                                        Remove
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                {cartItems.map((item) => (
+                                    <CartItem
+                                        key={item.id}
+                                        item={item}
+                                        setProductPrice={addProductPrice}
+                                    />
                                 ))}
                             </ul>
                         </div>
@@ -144,7 +99,11 @@ const Cart = ({ setOpen }) => {
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                     <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>Rs {totalPrice.toLocaleString()}</p>
+                        <p>
+                            {!loading
+                                ? "Rs " + totalPrice.toLocaleString()
+                                : "Calculating..."}
+                        </p>
                     </div>
                     <p className="mt-0.5 text-sm text-gray-500">
                         Shipping and taxes calculated at checkout.
