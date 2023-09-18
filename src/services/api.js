@@ -104,6 +104,10 @@ export const getProductById = (id) => {
     return getDeleteApi(`product/${id}`, "GET");
 };
 
+export const searchProduct = (query) => {
+    return getDeleteApi(`product/search?query=${query}`, "GET");
+};
+
 export const getProductImages = (id) => {
     return getDeleteApi(`image/product/${id}`, "GET");
 };

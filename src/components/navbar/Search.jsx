@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import closeIcon from "../../assets/icons/close.png";
-import productImage1 from "../../assets/productimages/product1.jpg";
-import { faker } from "@faker-js/faker";
-import { Link } from "react-router-dom";
+import { searchProduct as searchProductApi } from "../../services/api";
+import SearchItem from "./SearchItem";
 
 const Search = ({ setOpen }) => {
     const [query, setQuery] = useState("");
@@ -10,24 +9,15 @@ const Search = ({ setOpen }) => {
 
     const [show, setShow] = useState(false);
 
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault();
 
         if (query) {
-            let temp = [];
+            const response = await searchProductApi(query);
 
-            for (let i = 0; i < 7; i++) {
-                let product = {
-                    id: faker.database.mongodbObjectId(),
-                    name: faker.commerce.product(),
-                    price: faker.number.int({ min: 500, max: 2000 }),
-                    image: productImage1,
-                };
-
-                temp.push(product);
+            if (response.status === "ok") {
+                setResults(response.products);
             }
-
-            setResults(temp);
         }
     };
 
@@ -97,28 +87,7 @@ const Search = ({ setOpen }) => {
                         <div className="flow-root">
                             <ul className="divide-y divide-gray-200">
                                 {results.map((product) => (
-                                    <li key={product.id}>
-                                        <Link
-                                            to={"/product/" + product.id}
-                                            className="flex py-3 items-center"
-                                        >
-                                            <img
-                                                src={product.image}
-                                                alt={product.name}
-                                                className="h-10 w-10 flex-shrink-0 rounded-md object-cover object-center"
-                                            />
-
-                                            <div className="ml-4 flex flex-1 flex-col">
-                                                <div className="flex justify-between text-base font-medium text-gray-900">
-                                                    <h3>{product.name}</h3>
-                                                    <p className="ml-4">
-                                                        Rs.{" "}
-                                                        {product.price.toLocaleString()}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </li>
+                                    <SearchItem product={product} />
                                 ))}
                             </ul>
                         </div>
